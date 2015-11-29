@@ -1,0 +1,11 @@
+{
+  "main": {
+    "assets": {
+      "js": [
+        "src/namespace.js",
+        "src/Uri.def.js",
+        "src/exports.js"
+      ]
+    }
+  }
+}

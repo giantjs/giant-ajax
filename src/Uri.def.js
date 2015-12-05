@@ -13,6 +13,7 @@ $oop.postpone($ajax, 'Uri', function () {
 
     /**
      * Represents a Uniform Resource Identifier.
+     * @link http://www.rfc-base.org/txt/rfc-3986.txt
      * @class
      * @extends $oop.Base
      * @extends $utils.Stringifiable
@@ -56,11 +57,13 @@ $oop.postpone($ajax, 'Uri', function () {
                  */
                 this.path = uriComponents && uriComponents[3];
 
+                var query = uriComponents && uriComponents[4];
+
                 /**
                  * URI query component (http GET REST api, etc)
-                 * @type {string}
+                 * @type {$ajax.UriQueryComponent}
                  */
-                this.query = uriComponents && uriComponents[4];
+                this.query = query && $ajax.UriQueryComponent.create(query);
 
                 /**
                  * URI fragment component (html anchor, etc)

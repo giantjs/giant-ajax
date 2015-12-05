@@ -13,7 +13,8 @@
         equal(uri.scheme, 'http', "should set scheme property");
         equal(uri.authority, 'www.foo.com:8080', "should set authority property");
         equal(uri.path, 'hello/world', "should set path property");
-        equal(uri.query, 'bar=baz', "should set query property");
+        ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
+        equal(uri.query.toString(), 'bar=baz', "should set query property");
         equal(uri.fragment, 'quux', "should set fragment property");
     });
 
@@ -34,6 +35,7 @@
         equal(uri.scheme, 'http', "should set scheme property");
         equal(uri.authority, 'www.foo.com:8080', "should set authority property");
         equal(uri.path, 'hello/world', "should set path property");
+        ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query, 'bar=baz', "should set query property");
         equal(uri.fragment, 'quux', "should set fragment property");
     });

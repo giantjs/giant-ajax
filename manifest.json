@@ -3,7 +3,9 @@
     "assets": {
       "js": [
         "src/namespace.js",
-        "src/Uri.def.js",
+        "src/uri/UriPathComponent.def.js",
+        "src/uri/UriQueryComponent.def.js",
+        "src/uri/Uri.def.js",
         "src/exports.js"
       ]
     }

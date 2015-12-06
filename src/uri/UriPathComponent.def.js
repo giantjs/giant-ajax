@@ -7,7 +7,7 @@ $oop.postpone($ajax, 'UriPathComponent', function () {
     /**
      * @name $ajax.UriPathComponent.create
      * @function
-     * @param {string} uriPath
+     * @param {string} path
      * @returns {$ajax.UriPathComponent}
      */
 
@@ -19,15 +19,15 @@ $oop.postpone($ajax, 'UriPathComponent', function () {
     $ajax.UriPathComponent = self
         .addMethods(/** @lends $ajax.UriPathComponent# */{
             /**
-             * @param {string} uriPath
+             * @param {string} path
              * @ignore
              */
-            init: function (uriPath) {
+            init: function (path) {
                 /**
                  * @type {$data.Path}
                  */
-                this.path = uriPath ?
-                    uriPath.split('/').map(decodeURIComponent).toPath() :
+                this.path = path ?
+                    path.split('/').map(decodeURIComponent).toPath() :
                     [].toPath();
             },
 

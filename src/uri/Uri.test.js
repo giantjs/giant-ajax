@@ -11,7 +11,8 @@
         var uri = $ajax.Uri.create('http://www.foo.com:8080/hello/world?bar=baz#quux');
 
         equal(uri.scheme, 'http', "should set scheme property");
-        equal(uri.authority, 'www.foo.com:8080', "should set authority property");
+        ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
+        equal(uri.authority.toString(), 'www.foo.com:8080', "should set authority property");
         equal(uri.path, 'hello/world', "should set path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query.toString(), 'bar=baz', "should set query property");
@@ -22,7 +23,7 @@
         var uri = $ajax.Uri.create();
 
         equal(uri.scheme, undefined, "should set scheme property");
-        equal(uri.authority, undefined, "should set authority property");
+        ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
         equal(uri.path, undefined, "should set path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query.toString(), '', "should set query property");
@@ -34,7 +35,8 @@
 
         ok(uri.isA($ajax.Uri), "should return Uri instance");
         equal(uri.scheme, 'http', "should set scheme property");
-        equal(uri.authority, 'www.foo.com:8080', "should set authority property");
+        ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
+        equal(uri.authority.toString(), 'www.foo.com:8080', "should set authority property");
         equal(uri.path, 'hello/world', "should set path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query, 'bar=baz', "should set query property");

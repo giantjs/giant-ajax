@@ -22,6 +22,7 @@ $oop.postpone($ajax, 'Uri', function () {
         .addConstants(/** @lends $ajax.Uri */{
             /**
              * Regular expression for matching URIs.
+             * TODO: Double forward slash in hier-part (bw. scheme & authority) should be optional.
              * @link http://labs.apache.org/webarch/uri/rfc/rfc3986.html#regexp
              * @type {RegExp}
              * @constant
@@ -37,21 +38,21 @@ $oop.postpone($ajax, 'Uri', function () {
             init: function (uriString) {
                 $assertion.isStringOptional(uriString, "Invalid URI string");
 
-                var uriComponents = uriString && uriString.match(self.RE_URI_PARSER);
+                var uriComponents = (uriString && uriString.match(self.RE_URI_PARSER)) || [];
 
                 /**
                  * URI scheme component (ftp, http, mailto, mshelp, ymsgr, etc)
                  * @type {string}
                  */
-                this.scheme = uriComponents && uriComponents[1];
+                this.scheme = uriComponents[1];
 
                 /**
                  * URI authority component (host, user:pwd@host, etc)
                  * @type {string}
                  */
-                this.authority = uriComponents && uriComponents[2];
+                this.authority = $ajax.UriAuthorityComponent.create(uriComponents[2]);
 
-                var path = uriComponents && uriComponents[3];
+                var path = uriComponents[3];
 
                 /**
                  * URI path component
@@ -59,19 +60,17 @@ $oop.postpone($ajax, 'Uri', function () {
                  */
                 this.path = path && path.toUriPathComponent();
 
-                var query = uriComponents && uriComponents[4];
-
                 /**
                  * URI query component (http GET REST api, etc)
                  * @type {$ajax.UriQueryComponent}
                  */
-                this.query = $ajax.UriQueryComponent.create(query);
+                this.query = $ajax.UriQueryComponent.create(uriComponents[4]);
 
                 /**
                  * URI fragment component (html anchor, etc)
                  * @type {string}
                  */
-                this.fragment = uriComponents && uriComponents[5];
+                this.fragment = uriComponents[5];
             },
 
             /**
@@ -160,12 +159,16 @@ $oop.postpone($ajax, 'Uri', function () {
              * @returns {string}
              */
             toString: function () {
+                var path = this.path,
+                    query = this.query,
+                    fragment = this.fragment;
+
                 return [
                     this.scheme + '://',
                     this.authority,
-                    this.path && ('/' + this.path),
-                    this.query.dictionary.getKeyCount() ? '?' + this.query : '',
-                    this.fragment && ('#' + this.fragment)
+                    path && ('/' + path),
+                    query.dictionary.getKeyCount() ? '?' + query : '',
+                    fragment && ('#' + fragment)
                 ].join('');
             }
         });

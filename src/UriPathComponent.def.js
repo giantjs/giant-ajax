@@ -14,6 +14,7 @@ $oop.postpone($ajax, 'UriPathComponent', function () {
     /**
      * @class
      * @extends $oop.Base
+     * @extends $utils.Stringifiable
      */
     $ajax.UriPathComponent = self
         .addMethods(/** @lends $ajax.UriPathComponent# */{

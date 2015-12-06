@@ -14,6 +14,7 @@ $oop.postpone($ajax, 'UriQueryComponent', function () {
     /**
      * @class
      * @extends $oop.Base
+     * @extends $utils.Stringifiable
      */
     $ajax.UriQueryComponent = self
         .addConstants(/** @lends $ajax.UriQueryComponent */{

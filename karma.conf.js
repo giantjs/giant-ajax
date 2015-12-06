@@ -18,6 +18,7 @@ module.exports = function (config) {
             'config/giant-oop-test.config.js',
             'node_modules/giant-utils/lib/giant-utils.js',
             'node_modules/giant-data/lib/giant-data.js',
+            'node_modules/giant-event/lib/giant-event.js',
 
             'src/namespace.js',
             'src/**/*.def.js',

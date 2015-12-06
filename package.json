@@ -13,12 +13,13 @@
     "type": "git",
     "url": "git@github.com:giantjs/giant-ajax.git"
   },
-  "engines" : {
-    "npm" : "^3.0.0"
+  "engines": {
+    "npm": "^3.0.0"
   },
   "dependencies": {
     "giant-assertion": "~0.3.0",
     "giant-data": "~0.3.0",
+    "giant-event": "^0.3.1",
     "giant-oop": "~0.3.0",
     "giant-utils": "~0.3.0"
   },

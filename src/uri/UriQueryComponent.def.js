@@ -86,6 +86,34 @@ $oop.postpone($ajax, 'UriQueryComponent', function () {
                 return !this.dictionary.getKeyCount();
             },
 
+            /**
+             * @param {string} field
+             * @param {string|string[]} value
+             * @returns {$ajax.UriQueryComponent}
+             */
+            addQueryParam: function (field, value) {
+                this.dictionary.addItem(field, value);
+                return this;
+            },
+
+            /**
+             * @param {object} queryParams
+             * @returns {$ajax.UriQueryComponent}
+             */
+            addQueryParams: function (queryParams) {
+                var dictionary = this.dictionary,
+                    fields = Object.keys(queryParams),
+                    fieldCount = fields.length,
+                    i, field;
+
+                for (i = 0; i < fieldCount; i++) {
+                    field = fields[i];
+                    dictionary.addItem(field, queryParams[field]);
+                }
+
+                return this;
+            },
+
             /** @returns {string} */
             toString: function () {
                 return self._dictionaryToQueryString(this.dictionary);

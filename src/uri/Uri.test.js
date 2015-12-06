@@ -13,7 +13,8 @@
         equal(uri.scheme, 'http', "should set scheme property");
         ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
         equal(uri.authority.toString(), 'www.foo.com:8080', "should set authority property");
-        equal(uri.path, 'hello/world', "should set path property");
+        ok(uri.path.isA($ajax.UriPathComponent), "should add path property");
+        equal(uri.path.toString(), 'hello/world', "should set path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query.toString(), 'bar=baz', "should set query property");
         equal(uri.fragment, 'quux', "should set fragment property");
@@ -24,7 +25,7 @@
 
         equal(uri.scheme, undefined, "should set scheme property");
         ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
-        equal(uri.path, undefined, "should set path property");
+        ok(uri.path.isA($ajax.UriPathComponent), "should add path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query.toString(), '', "should set query property");
         equal(uri.fragment, undefined, "should set fragment property");
@@ -37,7 +38,8 @@
         equal(uri.scheme, 'http', "should set scheme property");
         ok(uri.authority.isA($ajax.UriAuthorityComponent), "should add query property");
         equal(uri.authority.toString(), 'www.foo.com:8080', "should set authority property");
-        equal(uri.path, 'hello/world', "should set path property");
+        ok(uri.path.isA($ajax.UriPathComponent), "should add path property");
+        equal(uri.path.toString(), 'hello/world', "should set path property");
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query, 'bar=baz', "should set query property");
         equal(uri.fragment, 'quux', "should set fragment property");
@@ -55,6 +57,8 @@
         var uri = 'http://www.foo.com'.toUri();
 
         strictEqual(uri.setAuthority('bar.org'), uri, "should be chainable");
+        ok(uri.authority.isA($ajax.UriAuthorityComponent),
+            "should set UriAuthorityComponent instance");
         equal(uri.toString(), 'http://bar.org',
             "should set authority component");
     });
@@ -63,27 +67,20 @@
         var uri = 'http://www.foo.com'.toUri();
 
         strictEqual(uri.setPath('bar/baz'), uri, "should be chainable");
+        ok(uri.path.isA($ajax.UriPathComponent),
+            "should set UriPathComponent instance");
         equal(uri.toString(), 'http://www.foo.com/bar/baz',
             "should set path component");
     });
 
-    test("Parameter addition", function () {
-        var uri = 'http://www.foo.com:8080/hello/world#quux'.toUri();
+    test("Query setter", function () {
+        var uri = 'http://www.foo.com'.toUri();
 
-        strictEqual(uri.addQueryParam('foo', 'bar'), uri, "should be chainable");
-        equal(uri.toString(), 'http://www.foo.com:8080/hello/world?foo=bar#quux',
-            "should add specified parameter");
-    });
-
-    test("Multiple parameter addition", function () {
-        var uri = 'http://www.foo.com:8080/hello/world#quux'.toUri();
-
-        strictEqual(uri.addQueryParams({
-            foo: 'bar',
-            baz: ['quux', '1']
-        }), uri, "should be chainable");
-        equal(uri.toString(), 'http://www.foo.com:8080/hello/world?foo=bar&baz=quux&baz=1#quux',
-            "should add specified parameters");
+        strictEqual(uri.setQuery('foo=bar'), uri, "should be chainable");
+        ok(uri.query.isA($ajax.UriQueryComponent),
+            "should set UriQueryComponent instance");
+        equal(uri.toString(), 'http://www.foo.com?foo=bar',
+            "should set query component");
     });
 
     test("Fragment setter", function () {

@@ -46,6 +46,25 @@
             "should return true for query content");
     });
 
+    test("Parameter addition", function () {
+        var uriQuery = ''.toUriQueryComponent();
+
+        strictEqual(uriQuery.addQueryParam('foo', 'bar'), uriQuery, "should be chainable");
+        equal(uriQuery.toString(), 'foo=bar',
+            "should add specified parameter");
+    });
+
+    test("Multiple parameter addition", function () {
+        var uriQuery = ''.toUriQueryComponent();
+
+        strictEqual(uriQuery.addQueryParams({
+            foo: 'bar',
+            baz: ['quux', '1']
+        }), uriQuery, "should be chainable");
+        equal(uriQuery.toString(), 'foo=bar&baz=quux&baz=1',
+            "should add specified parameters");
+    });
+
     test("String conversion", function () {
         equal($ajax.UriQueryComponent.create('').toString(), '',
             "should return empty string for empty dictionary");

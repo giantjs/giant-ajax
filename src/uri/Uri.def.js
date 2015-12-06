@@ -52,13 +52,11 @@ $oop.postpone($ajax, 'Uri', function () {
                  */
                 this.authority = $ajax.UriAuthorityComponent.create(uriComponents[2]);
 
-                var path = uriComponents[3];
-
                 /**
                  * URI path component
                  * @type {string}
                  */
-                this.path = path && path.toUriPathComponent();
+                this.path = $ajax.UriPathComponent.create(uriComponents[3]);
 
                 /**
                  * URI query component (http GET REST api, etc)
@@ -87,7 +85,7 @@ $oop.postpone($ajax, 'Uri', function () {
              * @returns {$ajax.Uri}
              */
             setAuthority: function (authority) {
-                this.authority = authority;
+                this.authority = $ajax.UriAuthorityComponent.create(authority);
                 return this;
             },
 
@@ -96,7 +94,7 @@ $oop.postpone($ajax, 'Uri', function () {
              * @returns {$ajax.Uri}
              */
             setPath: function (path) {
-                this.path = path;
+                this.path = $ajax.UriPathComponent.create(path);
                 return this;
             },
 
@@ -106,34 +104,6 @@ $oop.postpone($ajax, 'Uri', function () {
              */
             setQuery: function (query) {
                 this.query = $ajax.UriQueryComponent.create(query);
-                return this;
-            },
-
-            /**
-             * @param {string} field
-             * @param {string|string[]} value
-             * @returns {$ajax.Uri}
-             */
-            addQueryParam: function (field, value) {
-                this.query.dictionary.addItem(field, value);
-                return this;
-            },
-
-            /**
-             * @param {object} queryParams
-             * @returns {$ajax.Uri}
-             */
-            addQueryParams: function (queryParams) {
-                var dictionary = this.query.dictionary,
-                    fields = Object.keys(queryParams),
-                    fieldCount = fields.length,
-                    i, field;
-
-                for (i = 0; i < fieldCount; i++) {
-                    field = fields[i];
-                    dictionary.addItem(field, queryParams[field]);
-                }
-
                 return this;
             },
 
@@ -166,8 +136,8 @@ $oop.postpone($ajax, 'Uri', function () {
                 return [
                     this.scheme + '://',
                     this.authority,
-                    path && ('/' + path),
-                    query.isEmpty() ? '': '?' + query,
+                    path.isEmpty() ? '' : '/' + path,
+                    query.isEmpty() ? '' : '?' + query,
                     fragment && ('#' + fragment)
                 ].join('');
             }

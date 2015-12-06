@@ -29,6 +29,15 @@
         equal(uriAuthority.port, '8000', "should set port property");
     });
 
+    test("Emptiness tester", function () {
+        ok($ajax.UriAuthorityComponent.create().isEmpty(),
+            "should return true when instantiated with undefined");
+        ok($ajax.UriAuthorityComponent.create('').isEmpty(),
+            "should return true when instantiated with empty string");
+        ok(!$ajax.UriAuthorityComponent.create('foo.com').isEmpty(),
+            "should return false for any content");
+    });
+
     test("User info setter", function () {
         var uriAuthority = 'john.smith@foo.com:8000'.toUriAuthorityComponent();
 

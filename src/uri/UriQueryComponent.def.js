@@ -15,6 +15,7 @@ $oop.postpone($ajax, 'UriQueryComponent', function () {
      * @class
      * @extends $oop.Base
      * @extends $utils.Stringifiable
+     * @extends $ajax.UriComponent
      */
     $ajax.UriQueryComponent = self
         .addConstants(/** @lends $ajax.UriQueryComponent */{
@@ -76,6 +77,13 @@ $oop.postpone($ajax, 'UriQueryComponent', function () {
 
                 /** @type {$data.Dictionary} */
                 this.dictionary = self._queryStringToDictionary(query || '');
+            },
+
+            /**
+             * @returns {boolean}
+             */
+            isEmpty: function () {
+                return !this.dictionary.getKeyCount();
             },
 
             /** @returns {string} */

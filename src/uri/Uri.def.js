@@ -167,7 +167,7 @@ $oop.postpone($ajax, 'Uri', function () {
                     this.scheme + '://',
                     this.authority,
                     path && ('/' + path),
-                    query.dictionary.getKeyCount() ? '?' + query : '',
+                    query.isEmpty() ? '': '?' + query,
                     fragment && ('#' + fragment)
                 ].join('');
             }

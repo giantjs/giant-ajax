@@ -37,6 +37,15 @@
         }, "should return dictionary with results");
     });
 
+    test("Emptiness tester", function () {
+        ok($ajax.UriQueryComponent.create().isEmpty(),
+            "should return false when instantiated with undefined");
+        ok($ajax.UriQueryComponent.create('').isEmpty(),
+            "should return false when instantiated with empty string");
+        ok(!$ajax.UriQueryComponent.create('foo=bar').isEmpty(),
+            "should return true for query content");
+    });
+
     test("String conversion", function () {
         equal($ajax.UriQueryComponent.create('').toString(), '',
             "should return empty string for empty dictionary");

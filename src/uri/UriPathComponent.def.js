@@ -7,7 +7,7 @@ $oop.postpone($ajax, 'UriPathComponent', function () {
     /**
      * @name $ajax.UriPathComponent.create
      * @function
-     * @param {string} path
+     * @param {string} [path]
      * @returns {$ajax.UriPathComponent}
      */
 
@@ -15,20 +15,30 @@ $oop.postpone($ajax, 'UriPathComponent', function () {
      * @class
      * @extends $oop.Base
      * @extends $utils.Stringifiable
+     * @extends $ajax.UriComponent
      */
     $ajax.UriPathComponent = self
         .addMethods(/** @lends $ajax.UriPathComponent# */{
             /**
-             * @param {string} path
+             * @param {string} [path]
              * @ignore
              */
             init: function (path) {
+                $assertion.isStringOptional(path, "Invalid path component");
+
                 /**
                  * @type {$data.Path}
                  */
                 this.path = path ?
                     path.split('/').map(decodeURIComponent).toPath() :
                     [].toPath();
+            },
+
+            /**
+             * @returns {boolean}
+             */
+            isEmpty: function () {
+                return !this.path.asArray.length;
             },
 
             /** @returns {string} */

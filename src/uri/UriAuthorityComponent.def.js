@@ -15,6 +15,7 @@ $oop.postpone($ajax, 'UriAuthorityComponent', function () {
      * @class
      * @extends $oop.Base
      * @extends $utils.Stringifiable
+     * @extends $ajax.UriComponent
      */
     $ajax.UriAuthorityComponent = self
         .addConstants(/** @lends $ajax.UriAuthorityComponent */{
@@ -51,6 +52,13 @@ $oop.postpone($ajax, 'UriAuthorityComponent', function () {
                  * @type {string}
                  */
                 this.port = parts[3] && decodeURIComponent(parts[3]);
+            },
+
+            /**
+             * @returns {boolean}
+             */
+            isEmpty: function () {
+                return !(this.userinfo || this.host || this.port);
             },
 
             /**

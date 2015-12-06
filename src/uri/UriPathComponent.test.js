@@ -24,6 +24,15 @@
         ok(uriPath.path.equals('foo>bar>baz'.toPath()), "should set path property");
     });
 
+    test("Emptiness tester", function () {
+        ok($ajax.UriPathComponent.create().isEmpty(),
+            "should return true when instantiated with undefined");
+        ok($ajax.UriPathComponent.create('').isEmpty(),
+            "should return true when instantiated with empty string");
+        ok(!$ajax.UriPathComponent.create('foo/bar/baz').isEmpty(),
+            "should return false for any content");
+    });
+
     test("String conversion", function () {
         equal(''.toUriPathComponent().toString(), '',
             "should return empty string for empty path");

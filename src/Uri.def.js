@@ -51,11 +51,13 @@ $oop.postpone($ajax, 'Uri', function () {
                  */
                 this.authority = uriComponents && uriComponents[2];
 
+                var path = uriComponents && uriComponents[3];
+
                 /**
                  * URI path component
                  * @type {string}
                  */
-                this.path = uriComponents && uriComponents[3];
+                this.path = path && path.toUriPathComponent();
 
                 var query = uriComponents && uriComponents[4];
 
@@ -63,7 +65,7 @@ $oop.postpone($ajax, 'Uri', function () {
                  * URI query component (http GET REST api, etc)
                  * @type {$ajax.UriQueryComponent}
                  */
-                this.query = query && $ajax.UriQueryComponent.create(query);
+                this.query = query && query.toUriQueryComponent();
 
                 /**
                  * URI fragment component (html anchor, etc)

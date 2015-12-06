@@ -41,6 +41,30 @@
         equal(uri.fragment, 'quux', "should set fragment property");
     });
 
+    test("Scheme setter", function () {
+        var uri = 'http://www.foo.com'.toUri();
+
+        strictEqual(uri.setScheme('https'), uri, "should be chainable");
+        equal(uri.toString(), 'https://www.foo.com',
+            "should set scheme component");
+    });
+
+    test("Authority setter", function () {
+        var uri = 'http://www.foo.com'.toUri();
+
+        strictEqual(uri.setAuthority('bar.org'), uri, "should be chainable");
+        equal(uri.toString(), 'http://bar.org',
+            "should set authority component");
+    });
+
+    test("Path setter", function () {
+        var uri = 'http://www.foo.com'.toUri();
+
+        strictEqual(uri.setPath('bar/baz'), uri, "should be chainable");
+        equal(uri.toString(), 'http://www.foo.com/bar/baz',
+            "should set path component");
+    });
+
     test("Parameter addition", function () {
         var uri = 'http://www.foo.com:8080/hello/world#quux'.toUri();
 
@@ -58,6 +82,14 @@
         }), uri, "should be chainable");
         equal(uri.toString(), 'http://www.foo.com:8080/hello/world?foo=bar&baz=quux&baz=1#quux',
             "should add specified parameters");
+    });
+
+    test("Fragment setter", function () {
+        var uri = 'http://www.foo.com'.toUri();
+
+        strictEqual(uri.setFragment('bar'), uri, "should be chainable");
+        equal(uri.toString(), 'http://www.foo.com#bar',
+            "should set fragment component");
     });
 
     test("Cloning", function () {

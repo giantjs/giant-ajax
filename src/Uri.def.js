@@ -75,6 +75,42 @@ $oop.postpone($ajax, 'Uri', function () {
             },
 
             /**
+             * @param {string} scheme
+             * @returns {$ajax.Uri}
+             */
+            setScheme: function (scheme) {
+                this.scheme = scheme;
+                return this;
+            },
+
+            /**
+             * @param {string} authority
+             * @returns {$ajax.Uri}
+             */
+            setAuthority: function (authority) {
+                this.authority = authority;
+                return this;
+            },
+
+            /**
+             * @param {string} path
+             * @returns {$ajax.Uri}
+             */
+            setPath: function (path) {
+                this.path = path;
+                return this;
+            },
+
+            /**
+             * @param {string} query
+             * @returns {$ajax.Uri}
+             */
+            setQuery: function (query) {
+                this.query = $ajax.UriQueryComponent.create(query);
+                return this;
+            },
+
+            /**
              * @param {string} field
              * @param {string|string[]} value
              * @returns {$ajax.Uri}
@@ -99,6 +135,15 @@ $oop.postpone($ajax, 'Uri', function () {
                     dictionary.addItem(field, queryParams[field]);
                 }
 
+                return this;
+            },
+
+            /**
+             * @param {string} fragment
+             * @returns {$ajax.Uri}
+             */
+            setFragment: function (fragment) {
+                this.fragment = fragment;
                 return this;
             },
 

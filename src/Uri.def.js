@@ -65,13 +65,41 @@ $oop.postpone($ajax, 'Uri', function () {
                  * URI query component (http GET REST api, etc)
                  * @type {$ajax.UriQueryComponent}
                  */
-                this.query = query && query.toUriQueryComponent();
+                this.query = $ajax.UriQueryComponent.create(query);
 
                 /**
                  * URI fragment component (html anchor, etc)
                  * @type {string}
                  */
                 this.fragment = uriComponents && uriComponents[5];
+            },
+
+            /**
+             * @param {string} field
+             * @param {string|string[]} value
+             * @returns {$ajax.Uri}
+             */
+            addQueryParam: function (field, value) {
+                this.query.dictionary.addItem(field, value);
+                return this;
+            },
+
+            /**
+             * @param {object} queryParams
+             * @returns {$ajax.Uri}
+             */
+            addQueryParams: function (queryParams) {
+                var dictionary = this.query.dictionary,
+                    fields = Object.keys(queryParams),
+                    fieldCount = fields.length,
+                    i, field;
+
+                for (i = 0; i < fieldCount; i++) {
+                    field = fields[i];
+                    dictionary.addItem(field, queryParams[field]);
+                }
+
+                return this;
             },
 
             /**
@@ -91,7 +119,7 @@ $oop.postpone($ajax, 'Uri', function () {
                     this.scheme + '://',
                     this.authority,
                     this.path && ('/' + this.path),
-                    this.query && ('?' + this.query),
+                    this.query.dictionary.getKeyCount() ? '?' + this.query : '',
                     this.fragment && ('#' + this.fragment)
                 ].join('');
             }

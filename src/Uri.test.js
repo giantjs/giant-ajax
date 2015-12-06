@@ -24,7 +24,8 @@
         equal(uri.scheme, undefined, "should set scheme property");
         equal(uri.authority, undefined, "should set authority property");
         equal(uri.path, undefined, "should set path property");
-        equal(uri.query, undefined, "should set query property");
+        ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
+        equal(uri.query.toString(), '', "should set query property");
         equal(uri.fragment, undefined, "should set fragment property");
     });
 
@@ -38,6 +39,25 @@
         ok(uri.query.isA($ajax.UriQueryComponent), "should add query property");
         equal(uri.query, 'bar=baz', "should set query property");
         equal(uri.fragment, 'quux', "should set fragment property");
+    });
+
+    test("Parameter addition", function () {
+        var uri = 'http://www.foo.com:8080/hello/world#quux'.toUri();
+
+        strictEqual(uri.addQueryParam('foo', 'bar'), uri, "should be chainable");
+        equal(uri.toString(), 'http://www.foo.com:8080/hello/world?foo=bar#quux',
+            "should add specified parameter");
+    });
+
+    test("Multiple parameter addition", function () {
+        var uri = 'http://www.foo.com:8080/hello/world#quux'.toUri();
+
+        strictEqual(uri.addQueryParams({
+            foo: 'bar',
+            baz: ['quux', '1']
+        }), uri, "should be chainable");
+        equal(uri.toString(), 'http://www.foo.com:8080/hello/world?foo=bar&baz=quux&baz=1#quux',
+            "should add specified parameters");
     });
 
     test("Cloning", function () {
